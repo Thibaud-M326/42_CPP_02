@@ -1,0 +1,7 @@
+.vscode
+canon
+fixedPoint
+*.c
+*.d
+*.o
+.obj
