@@ -30,7 +30,7 @@ Fixed::Fixed(const int toFixed) {
 }
 
 Fixed::Fixed( const float toFixed ) {
-	_fixedPoint = roundf(toFixed / (1 << _fracBits));
+	_fixedPoint = roundf(toFixed * (1 << _fracBits));
 }
 
 float	Fixed::toFloat( void ) const {
