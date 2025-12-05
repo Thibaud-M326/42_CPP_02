@@ -30,14 +30,7 @@ Fixed::Fixed(const int toFixed) {
 }
 
 Fixed::Fixed( const float toFixed ) {
-	_fixedPoint = roundf(toFixed * (1 << _fracBits));
-}
-
-float	Fixed::toFloat( void ) const {
-	float toFloat;
-
-	toFloat = _fixedPoint >> _fracBits;
-	return (toFloat);
+	_fixedPoint = static_cast<int>(roundf(toFixed * (1 << _fracBits)));
 }
 
 int	Fixed::toInt() const {
@@ -45,6 +38,13 @@ int	Fixed::toInt() const {
 
 	toInt = _fixedPoint >> _fracBits;
 	return (toInt);
+}
+
+float	Fixed::toFloat( void ) const {
+	float toFloat;
+
+	toFloat = static_cast< float >(_fixedPoint) / (1 << _fracBits);
+	return (toFloat);
 }
 
 int Fixed::getRawBits( void ) const {
@@ -57,3 +57,9 @@ void	Fixed::setRawBits(int const raw) {
 }
 
 //private
+
+//overload
+std::ostream& operator<< (std::ostream& stream, const Fixed& fixed) {
+	stream << fixed.toFloat();
+	return (stream);	
+}

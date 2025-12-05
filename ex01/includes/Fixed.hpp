@@ -1,6 +1,8 @@
 #ifndef FIXED_H
 #define FIXED_H
 
+#include <iostream>
+
 class Fixed {
 
 	public:
@@ -21,5 +23,7 @@ class Fixed {
 		int _fixedPoint;
 		static const int _fracBits = 8;
 };
+
+std::ostream& operator<< (std::ostream& stream, const Fixed& fixed);
 
 #endif
