@@ -4,41 +4,35 @@
 
 Fixed::Fixed() 
 : 
-	_fixedPoint(0),
-	_epsilon(std::numeric_limits<float>::epsilon())
-{
-	std::cout << "Default constructor called" << std::endl;
-}
+	_fixedPoint(0)
+{}
+
+Fixed::Fixed(const int toFixed)
+:
+	_fixedPoint(toFixed << _fracBits)
+{}
+
+Fixed::Fixed( const float toFixed ) 
+:
+	_fixedPoint(static_cast<int>(roundf(toFixed * (1 << _fracBits))))
+{}
 
 Fixed::Fixed(const Fixed &copy) 
-{
-	std::cout << "Copy constructor called" << std::endl;
-	this->_fixedPoint = copy.getRawBits();
-}
+:
+	_fixedPoint(copy._fixedPoint)
+{}
 
 Fixed& Fixed::operator=(const Fixed &other) 
 {
 	std::cout << "Copy assignment operator called" << std::endl;
 	if (this == &other)
 		return (*this);
-	_fixedPoint = other.getRawBits();
+	_fixedPoint = other._fixedPoint;
 	return (*this);
 }
 
 Fixed::~Fixed()
-{
-	std::cout << "Destructor called" << std::endl;
-}
-
-Fixed::Fixed(const int toFixed)
-{
-	_fixedPoint = toFixed << _fracBits;
-}
-
-Fixed::Fixed( const float toFixed ) 
-{
-	_fixedPoint = static_cast<int>(roundf(toFixed * (1 << _fracBits)));
-}
+{}
 
 int	Fixed::toInt() const
 {
@@ -52,13 +46,12 @@ float	Fixed::toFloat( void ) const
 {
 	float toFloat;
 
-	toFloat = static_cast< float >(_fixedPoint) / (1 << _fracBits);
+	toFloat = static_cast<float>(_fixedPoint) / (1 << _fracBits);
 	return (toFloat);
 }
 
 int Fixed::getRawBits( void ) const
 {
-	std::cout << "getRawBits member function called" << std::endl;
 	return (this->_fixedPoint);
 }
 
@@ -67,7 +60,7 @@ void	Fixed::setRawBits(int const raw)
 	this->_fixedPoint = raw;		
 }
 
-int		Fixed::operator>(const Fixed &f)
+int		Fixed::operator>(const Fixed &f) const
 {
 	int a;
 	int b;
@@ -77,7 +70,7 @@ int		Fixed::operator>(const Fixed &f)
 	return (a > b);
 }
 
-int		Fixed::operator<(const Fixed &f)
+int		Fixed::operator<(const Fixed &f) const
 {
 	int a;
 	int b;
@@ -87,7 +80,7 @@ int		Fixed::operator<(const Fixed &f)
 	return (a < b);
 }
 
-int		Fixed::operator>=(const Fixed &f)
+int		Fixed::operator>=(const Fixed &f) const
 {
 	int a;
 	int b;
@@ -97,7 +90,7 @@ int		Fixed::operator>=(const Fixed &f)
 	return (a >= b);
 }
 
-int		Fixed::operator<=(const Fixed &f)
+int		Fixed::operator<=(const Fixed &f) const
 {
 	int a;
 	int b;
@@ -107,7 +100,7 @@ int		Fixed::operator<=(const Fixed &f)
 	return (a <= b);
 }
 
-int		Fixed::operator==(const Fixed &f)
+int		Fixed::operator==(const Fixed &f) const
 {
 	int a;
 	int b;
@@ -117,7 +110,7 @@ int		Fixed::operator==(const Fixed &f)
 	return (a == b);
 }
 
-int		Fixed::operator!=(const Fixed &f)
+int		Fixed::operator!=(const Fixed &f) const
 {
 	int a;
 	int b;
@@ -127,7 +120,7 @@ int		Fixed::operator!=(const Fixed &f)
 	return (a != b);
 }
 
-Fixed	Fixed::operator+(const Fixed &f)
+Fixed	Fixed::operator+(const Fixed &f) const
 {
 	float a = this->toFloat();
 	float b = f.toFloat();
@@ -135,7 +128,7 @@ Fixed	Fixed::operator+(const Fixed &f)
 	return (Fixed((a + b)));
 } 
 
-Fixed	Fixed::operator-(const Fixed &f)
+Fixed	Fixed::operator-(const Fixed &f) const
 {
 	float a = this->toFloat();
 	float b = f.toFloat();
@@ -143,7 +136,7 @@ Fixed	Fixed::operator-(const Fixed &f)
 	return (Fixed((a - b)));
 } 
 
-Fixed	Fixed::operator*(const Fixed &f)
+Fixed	Fixed::operator*(const Fixed &f) const
 {
 	float a = this->toFloat();
 	float b = f.toFloat();
@@ -151,7 +144,7 @@ Fixed	Fixed::operator*(const Fixed &f)
 	return (Fixed((a * b)));
 }
 
-Fixed	Fixed::operator/(const Fixed &f)
+Fixed	Fixed::operator/(const Fixed &f) const
 {
 	float a = this->toFloat();
 	float b = f.toFloat();
@@ -161,23 +154,57 @@ Fixed	Fixed::operator/(const Fixed &f)
 
 Fixed&	Fixed::operator++()
 {
-	float cacal;
-
-	std::cout << "prout" << std::endl;
-
-	std::cout << _epsilon << std::endl;
-
-	cacal = (float)_fixedPoint + _epsilon;
-
-	std::cout << cacal << std::endl;
-
-	std::cout << "prout" << std::endl;
+	++_fixedPoint;
 	return (*this);
 }
 
-// Fixed	Fixed::operator++(int) {
+Fixed	Fixed::operator++(int)
+{
+	Fixed temp = *this;
+	++_fixedPoint;
+	return (temp);
+}
 
-// }
+Fixed&	Fixed::operator--()
+{
+	--_fixedPoint;
+	return (*this);
+}
+
+Fixed	Fixed::operator--(int)
+{
+	Fixed temp = *this;
+	--_fixedPoint;
+	return (temp);
+}
+
+Fixed&	Fixed::min(Fixed &a, Fixed &b)
+{
+	if (a <= b)
+		return (a);
+	return (b);
+}
+
+Fixed&	Fixed::max(Fixed &a, Fixed &b)
+{
+	if (a >= b)
+		return (a);
+	return (b);
+}
+
+const Fixed&	Fixed::min(const Fixed &a, const Fixed &b)
+{
+	if (a <= b)
+		return (a);
+	return (b);
+}
+
+const Fixed&	Fixed::max(const Fixed &a, const Fixed &b)
+{
+	if (a >= b)
+		return (a);
+	return (b);
+}
 
 std::ostream& operator<<(std::ostream& stream, const Fixed& fixed)
 {

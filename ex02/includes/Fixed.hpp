@@ -8,37 +8,45 @@ class Fixed {
 
 	public:
 		Fixed();
-		Fixed(const Fixed &copy);
-		Fixed&operator=(const Fixed &other);
-		~Fixed();
-
 		Fixed( const int toFixed );
 		Fixed( const float toFixed );
-		int		toInt( void ) const;
-		float	toFloat( void ) const;
-		int		getRawBits( void ) const;
-		void	setRawBits(int const raw);
 
-		int		operator>(const Fixed &f);
-		int		operator<(const Fixed &f);
-		int		operator>=(const Fixed &f);
-		int		operator<=(const Fixed &f);
-		int		operator==(const Fixed &f);
-		int		operator!=(const Fixed &f);
+		Fixed(const Fixed &copy);
+		Fixed&operator=(const Fixed &other);
 
-		Fixed	operator+(const Fixed &f);
-		Fixed	operator-(const Fixed &f);
-		Fixed	operator*(const Fixed &f);
-		Fixed	operator/(const Fixed &f);
+		~Fixed();
 
-		Fixed&	operator++();
-		// Fixed	operator++(int);
-		// Fixed	operator--();
-		// Fixed	operator--(int);
+		int			toInt( void ) const;
+		float		toFloat( void ) const;
+		int			getRawBits( void ) const;
+		void		setRawBits(int const raw);
+
+		int			operator>(const Fixed &f) const;
+		int			operator<(const Fixed &f) const;
+		int			operator>=(const Fixed &f) const;
+		int			operator<=(const Fixed &f) const;
+		int			operator==(const Fixed &f) const;
+		int			operator!=(const Fixed &f) const;
+
+		Fixed		operator+(const Fixed &f) const;
+		Fixed		operator-(const Fixed &f) const;
+		Fixed		operator*(const Fixed &f) const;
+		Fixed		operator/(const Fixed &f) const;
+
+		Fixed&		operator++();
+		Fixed		operator++(int);
+		Fixed&		operator--();
+		Fixed		operator--(int);
+
+	static Fixed&			min(Fixed &a, Fixed &b);
+	static Fixed& 			max(Fixed &a, Fixed &b);
+
+	static const Fixed&		min(const Fixed &a, const Fixed &b);
+	static const Fixed&		max(const Fixed &a, const Fixed &b);
+
 	private:
 
 		int _fixedPoint;
-		float _epsilon;
 		static const int _fracBits = 8;
 };
 
