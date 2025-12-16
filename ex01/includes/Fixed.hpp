@@ -8,7 +8,7 @@ class Fixed {
 	public:
 		Fixed();
 		Fixed(const Fixed &copy);
-		Fixed &operator=(const Fixed &other);
+		Fixed&operator=(const Fixed &other);
 		~Fixed();
 
 		Fixed( const int toFixed );
@@ -26,4 +26,4 @@ class Fixed {
 
 std::ostream& operator<< (std::ostream& stream, const Fixed& fixed);
 
-#endif
+#endif 

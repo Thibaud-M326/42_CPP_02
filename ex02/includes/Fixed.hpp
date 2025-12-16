@@ -42,6 +42,6 @@ class Fixed {
 		static const int _fracBits = 8;
 };
 
-std::ostream& operator<<(std::ostream& stream, const Fixed& fixed);
+std::ostream& operator<<(std::ostream& stream, const Fixed& fixed);            
 
 #endif 
