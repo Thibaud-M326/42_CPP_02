@@ -25,12 +25,12 @@ Fixed& Fixed::operator=(const Fixed &other)
 	return (*this);
 }
 
-Fixed::~Fixed() 
+Fixed::~Fixed()
 {
 	std::cout << "Destructor called" << std::endl;
 }
 
-Fixed::Fixed(const int toFixed) 
+Fixed::Fixed(const int toFixed)
 {
 	_fixedPoint = toFixed << _fracBits;
 }
@@ -40,7 +40,7 @@ Fixed::Fixed( const float toFixed )
 	_fixedPoint = static_cast<int>(roundf(toFixed * (1 << _fracBits)));
 }
 
-int	Fixed::toInt() const 
+int	Fixed::toInt() const
 {
 	int toInt;
 
@@ -48,7 +48,7 @@ int	Fixed::toInt() const
 	return (toInt);
 }
 
-float	Fixed::toFloat( void ) const 
+float	Fixed::toFloat( void ) const
 {
 	float toFloat;
 
@@ -56,18 +56,18 @@ float	Fixed::toFloat( void ) const
 	return (toFloat);
 }
 
-int Fixed::getRawBits( void ) const 
+int Fixed::getRawBits( void ) const
 {
 	std::cout << "getRawBits member function called" << std::endl;
 	return (this->_fixedPoint);
 }
 
-void	Fixed::setRawBits(int const raw) 
+void	Fixed::setRawBits(int const raw)
 {
 	this->_fixedPoint = raw;		
 }
 
-int		Fixed::operator>(const Fixed &f) 
+int		Fixed::operator>(const Fixed &f)
 {
 	int a;
 	int b;
@@ -77,7 +77,7 @@ int		Fixed::operator>(const Fixed &f)
 	return (a > b);
 }
 
-int		Fixed::operator<(const Fixed &f) 
+int		Fixed::operator<(const Fixed &f)
 {
 	int a;
 	int b;
@@ -87,7 +87,7 @@ int		Fixed::operator<(const Fixed &f)
 	return (a < b);
 }
 
-int		Fixed::operator>=(const Fixed &f) 
+int		Fixed::operator>=(const Fixed &f)
 {
 	int a;
 	int b;
@@ -97,7 +97,7 @@ int		Fixed::operator>=(const Fixed &f)
 	return (a >= b);
 }
 
-int		Fixed::operator<=(const Fixed &f) 
+int		Fixed::operator<=(const Fixed &f)
 {
 	int a;
 	int b;
@@ -107,7 +107,7 @@ int		Fixed::operator<=(const Fixed &f)
 	return (a <= b);
 }
 
-int		Fixed::operator==(const Fixed &f) 
+int		Fixed::operator==(const Fixed &f)
 {
 	int a;
 	int b;
@@ -117,7 +117,7 @@ int		Fixed::operator==(const Fixed &f)
 	return (a == b);
 }
 
-int		Fixed::operator!=(const Fixed &f) 
+int		Fixed::operator!=(const Fixed &f)
 {
 	int a;
 	int b;
@@ -127,7 +127,7 @@ int		Fixed::operator!=(const Fixed &f)
 	return (a != b);
 }
 
-Fixed	Fixed::operator+(const Fixed &f) 
+Fixed	Fixed::operator+(const Fixed &f)
 {
 	float a = this->toFloat();
 	float b = f.toFloat();
@@ -135,7 +135,7 @@ Fixed	Fixed::operator+(const Fixed &f)
 	return (Fixed((a + b)));
 } 
 
-Fixed	Fixed::operator-(const Fixed &f) 
+Fixed	Fixed::operator-(const Fixed &f)
 {
 	float a = this->toFloat();
 	float b = f.toFloat();
@@ -143,7 +143,7 @@ Fixed	Fixed::operator-(const Fixed &f)
 	return (Fixed((a - b)));
 } 
 
-Fixed	Fixed::operator*(const Fixed &f) 
+Fixed	Fixed::operator*(const Fixed &f)
 {
 	float a = this->toFloat();
 	float b = f.toFloat();
@@ -151,7 +151,7 @@ Fixed	Fixed::operator*(const Fixed &f)
 	return (Fixed((a * b)));
 }
 
-Fixed	Fixed::operator/(const Fixed &f) 
+Fixed	Fixed::operator/(const Fixed &f)
 {
 	float a = this->toFloat();
 	float b = f.toFloat();
@@ -159,7 +159,7 @@ Fixed	Fixed::operator/(const Fixed &f)
 	return (Fixed((a / b)));
 } 
 
-Fixed&	Fixed::operator++() 
+Fixed&	Fixed::operator++()
 {
 	float cacal;
 
@@ -179,7 +179,7 @@ Fixed&	Fixed::operator++()
 
 // }
 
-std::ostream& operator<<(std::ostream& stream, const Fixed& fixed) 
+std::ostream& operator<<(std::ostream& stream, const Fixed& fixed)
 {
 	stream << fixed.toFloat();
 	return (stream);	
