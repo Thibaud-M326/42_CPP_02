@@ -1,6 +1,8 @@
 .vscode
 canon
 fixedPoint
+fixedPointOverload
+bsp
 *.c
 *.d
 *.o
